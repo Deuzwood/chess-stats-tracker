@@ -1,7 +1,9 @@
 let stored,last;
 
+const urlParams = new URLSearchParams(window.location.search);
 
-let actualise = () => { fetch('https://api.chess.com/pub/player/deuzwood/stats')
+
+let actualise = () => { fetch('https://api.chess.com/pub/player/'+urlParams.get('name')+'/stats')
   .then(response => {
     return response.json()
   })
@@ -11,11 +13,7 @@ let actualise = () => { fetch('https://api.chess.com/pub/player/deuzwood/stats')
         stored = data;
     }
     last = data;
-    
-    const urlParams = new URLSearchParams(window.location.search);
     render(urlParams.get('type'),urlParams.get('time'));
-    //render();
-
   })
   .catch(err => {
     console.error(err)
@@ -50,15 +48,9 @@ let render = (game="bullet",time="all") => {
 
   }
 
-document.querySelector('form').addEventListener('change', event => {
-    let game = document.querySelector('input[type=radio][name=type]:checked').value
-    let time = document.querySelector('input[type=radio][name=time]:checked').value;
-    
-    render(game,time);
+setInterval(actualise,1000*60*1)
 
-})
 
-actualise();
 
 
 
