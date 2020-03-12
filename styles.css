@@ -1,0 +1,32 @@
+body{
+    padding: 0;
+    margin:0;
+}
+.win{
+color: green;
+}
+
+.draw{
+ color: grey;
+}
+
+.loss{
+    color: red;
+}
+
+.elo{
+    /*color: grey;*/
+}
+
+.stream_box{
+    padding: 0;
+    margin:0;
+    font-weight: 800;
+    font-size: 52px;
+}
+
+.stream_result{
+    /*background-color: rgb(82, 136, 61);*/
+    padding: 0;
+    margin:20px;
+}
