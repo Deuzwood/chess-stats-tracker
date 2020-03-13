@@ -34,7 +34,7 @@ let render = (game="bullet",time="all") => {
     }
     if(time=='today'){
       let modif = last['chess_'+game].last.rating-stored['chess_'+game].last.rating
-      let sign = Math.sign(modif)>=0 ? '+' : '-'
+      let sign = Math.sign(modif)>=0 ? '+' : '';
       document.querySelector('#elo').innerHTML = last['chess_'+game].last.rating + " ("+sign+modif+')';
       
       document.querySelector('#win').innerHTML = last['chess_'+game].record.win-stored['chess_'+game].record.win;
@@ -47,8 +47,8 @@ let render = (game="bullet",time="all") => {
       
 
   }
-
-setInterval(actualise,1000*60*1)
+actualise()
+setInterval(actualise,1000*60*0.5)
 
 
 
