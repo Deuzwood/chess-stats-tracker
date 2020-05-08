@@ -11,13 +11,15 @@ It can be uses to display your statistics on Twitch stream.
 ?time=all&type=blitz&name=deuzwood
 
 time
--all
--today (show the current session)
+- all
+- today (show the current session)
 
 type
--bullet
--blitz
--rapid
+- bullet
+- blitz
+- rapid
+
+Or you can use the form.
 
 # Example
 
