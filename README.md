@@ -6,9 +6,11 @@ elo : win / draw / loss
 
 It can be uses to display your statistics on Twitch stream.
 
+Updates each 30 seconds.
+
 # Usage
 
-?time=all&type=blitz&name=deuzwood
+?time=all&type=blitz&name=LyonBeast
 
 time
 - all
