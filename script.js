@@ -3,8 +3,8 @@ let stored,last;
 const urlParams = new URLSearchParams(window.location.search);
 
 
-let actualise = () => { 
-  fetch('https://api.chess.com/pub/player/'+urlParams.get('name')+'/stats')
+let actualise = (name, type, time) => { 
+  fetch('https://api.chess.com/pub/player/'+name+'/stats')
   .then(response => {
     return response.json()
   })
@@ -14,7 +14,7 @@ let actualise = () => {
         stored = data;
     }
     last = data;
-    render( urlParams.get('type') , urlParams.get('time') );
+    render( type , time );
   })
   .catch(err => {
     console.error(err)
@@ -43,12 +43,15 @@ let render = (game="bullet",time="all") => {
     loss.innerHTML = last['chess_'+game].record.loss-stored['chess_'+game].record.loss;
   }
 }
+console.log(urlParams.get('name'));
 
-if(urlParams.get('name')===null){
-  info.innerHTML = "Missing parameter 'name'";
+if(urlParams.get('name')===null || urlParams.get('name') === ""){
+  form.classList = ''
 }
 else{
-  actualise()
+
+  stats.classList = ''
+  actualise(urlParams.get('name'), urlParams.get('type') , urlParams.get('time') )
   setInterval(actualise,1000*60*0.5)
 }
 

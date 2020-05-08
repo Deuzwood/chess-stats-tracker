@@ -15,3 +15,15 @@ color: green;
 .loss{
     color: red;
 }
+
+.d-none {
+    display: none;
+}
+
+form{
+    padding: 20px;
+}
+
+label{
+    font-size: medium;
+}
