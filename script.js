@@ -44,8 +44,13 @@ let render = (game="bullet",time="all") => {
   }
 }
 
-actualise()
-setInterval(actualise,1000*60*0.5)
+if(urlParams.get('name')===null){
+  info.innerHTML = "Missing parameter 'name'";
+}
+else{
+  actualise()
+  setInterval(actualise,1000*60*0.5)
+}
 
 
 
