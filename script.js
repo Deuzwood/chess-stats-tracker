@@ -45,7 +45,7 @@ let render = (game="bullet",time="all") => {
 console.log(urlParams.get('name'));
 
 if(urlParams.get('name')===null || urlParams.get('name') === ""){
-  container.classList = ''
+  container.classList = 'container'
 }
 else{
   stats.classList = ''

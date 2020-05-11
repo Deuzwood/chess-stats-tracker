@@ -1,8 +1,30 @@
+/* General & Utilities */
+
 body{
     padding: 0;
     margin:0;
+}
+
+p{
+    padding-left: 2em;
+    text-indent: 2em;
+}
+
+.container{
+    min-width: 800px;
+    width: 60%;
+    margin: auto;
+}
+
+.d-none {
+    display: none;
+}
+
+/* Stats */
+
+.stats{
     font-weight: 800;
-    font-size: 52px;
+    font-size: 58px;
 }
 .win{
 color: green;
@@ -16,14 +38,14 @@ color: green;
     color: red;
 }
 
-.d-none {
-    display: none;
-}
+/* Form */
 
 form{
     padding: 20px;
 }
 
-label{
-    font-size: medium;
-}
+input, textarea, select, button {
+    width : 150px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
