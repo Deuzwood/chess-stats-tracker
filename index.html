@@ -3,48 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stats</title>
+    <title>Stats Chess</title>
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <div id="stats" class="d-none">
-        <p id='info'>Chess Bullet - All time</p>
-
+    
         <span class="elo" id="elo">#Undefined</span> :
         <span class="win" id="win">#Undefined</span> /
         <span class="draw" id="draw">#Undefined</span> /
         <span class="loss" id="loss">#Undefined</span>
     </div>
 
-    <form class="d-none" id="form">
+    <div id="container" class="d-none">
+        <form>
 
-        <label for="name">Name </label>
+            <label for="name">Name </label>
 
-        <input type="text" name="name" id="name">
+            <input type="text" name="name" id="name">
 
-        <br>
-        
-        <label for="time">Time</label>
+            <br>
+            
+            <label for="time">Time</label>
 
-        <select name="time" id="time">
-            <option value="all">All</option>
-            <option value="today">Session</option>
-        </select>
+            <select name="time" id="time">
+                <option value="all">All</option>
+                <option value="today">Session</option>
+            </select>
 
-        <br>
+            <br>
 
-        <label for="type">Type</label>
+            <label for="type">Type</label>
 
-        <select name="type" id="type">
-            <option value="bullet">Bullet</option>
-            <option value="blitz">Blitz</option>
-            <option value="rapid">Rapid</option>
-        </select>
+            <select name="type" id="type">
+                <option value="bullet">Bullet</option>
+                <option value="blitz">Blitz</option>
+                <option value="rapid">Rapid</option>
+            </select>
 
-        <br>
+            <br>
 
-        <input type="submit" value="Submit">
-    </form>
+            <input type="submit" value="Submit">
+        </form>
+
+        <a href="help.html">How use it ?</a>
+    </div>
+
+
 
     <script src="script.js"></script>
 </body>

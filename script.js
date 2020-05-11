@@ -23,7 +23,6 @@ let actualise = (name, type, time) => {
 }
 
 let render = (game="bullet",time="all") => {
-  document.querySelector('#info').innerHTML='Chess '+game+' - '+time.replace('all','All time');
 
   if(time=='all'){
     elo.innerHTML = stored['chess_'+game].last.rating;
@@ -46,17 +45,10 @@ let render = (game="bullet",time="all") => {
 console.log(urlParams.get('name'));
 
 if(urlParams.get('name')===null || urlParams.get('name') === ""){
-  form.classList = ''
+  container.classList = ''
 }
 else{
-
   stats.classList = ''
   actualise(urlParams.get('name'), urlParams.get('type') , urlParams.get('time') )
   setInterval(actualise,1000*60*0.5)
 }
-
-
-
-
-
-
