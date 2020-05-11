@@ -49,10 +49,57 @@
             <input type="submit" value="Start">
         </form>
 
-        <a href="help.html">How use it ?</a>
+        <a href="#" id="btn_help">How use it ?</a>
     </div>
 
 
+    <div class="d-none" id="help">
+
+        <h1>Stats Chess</h1>
+
+        <h3>I am a streamer. How could use this tools ?</h3>
+        
+        <p>
+            Enter your Chess.com name, select bullet, blitz or rapid and 'All' if you want your stats from the beginning or Session if you want to see your stats of your session.
+            If your launch the page at 1 PM, each games finish after 1 PM will count to your session stats
+            
+        </p>
+
+        <h3>I am a streamer. How could use this tools ?</h3>
+        <p>
+            This tools is build for you. Do the first part and copy the full link.
+            Then go to your streaming software.<br>
+
+            I will take OBS Studio as example.<br>
+
+            Scenes > Sources -> Add -> Browser <br>
+
+            Paste the URL.<br>
+
+            Custom CSS is important.The default preset on OBS is :
+            <code>body { background-color: rgba(0, 0, 0, 0); margin: 0px auto; overflow: hidden; }</code>
+
+            <br>
+
+            <code>background-color: rgba(0, 0, 0, 0);</code> means the background will be transparent.
+            By default the the color of the text is Black.You may let it blakc or change it to White by adding
+            <code>color:white;</code>
+
+            
+            The configuration for CSS may look like :
+        <pre><code>
+        body { 
+            background-color: rgba(0, 0, 0, 0); 
+            margin: 0px auto; 
+            overflow: hidden; 
+            color: white;
+            font-size: 48px;
+        }</code></pre>
+
+        If you want to change CSS of Win / Draw / Loss , use <code>.win .draw .loss</code> CSS classes
+        </p>
+
+    </div>
 
     <script src="script.js"></script>
 </body>
