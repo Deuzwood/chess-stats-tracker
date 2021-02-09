@@ -1,58 +1,79 @@
-let stored,last;
+let stored, last;
 
 const urlParams = new URLSearchParams(window.location.search);
 
+let actualise = (name, type, time) => {
+    fetch('https://api.chess.com/pub/player/' + name + '/stats')
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            if (typeof stored === 'undefined') {
+                stored = data;
+            }
+            last = data;
+            render(type, time);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+};
 
-let actualise = (name, type, time) => { 
-  fetch('https://api.chess.com/pub/player/'+name+'/stats')
-  .then(response => {
-    return response.json()
-  })
-  .then(data => {
-    if(typeof stored === "undefined")
-    {
-        stored = data;
+let render = (game = 'bullet', time = 'all') => {
+    if (time == 'all') {
+        elo.innerHTML = stored['chess_' + game].last.rating;
+
+        win.innerHTML = stored['chess_' + game].record.win;
+        draw.innerHTML = stored['chess_' + game].record.draw;
+        loss.innerHTML = stored['chess_' + game].record.loss;
     }
-    last = data;
-    render( type , time );
-  })
-  .catch(err => {
-    console.error(err);
-  })
+    if (time == 'today') {
+        let modif =
+            last['chess_' + game].last.rating -
+            stored['chess_' + game].last.rating;
+        let sign = Math.sign(modif) >= 0 ? '+' : '';
+        elo.innerHTML =
+            last['chess_' + game].last.rating + ' (' + sign + modif + ')';
 
-}
-
-let render = (game="bullet",time="all") => {
-
-  if(time=='all'){
-    elo.innerHTML = stored['chess_'+game].last.rating;
-    
-    win.innerHTML = stored['chess_'+game].record.win;
-    draw.innerHTML = stored['chess_'+game].record.draw;
-    loss.innerHTML = stored['chess_'+game].record.loss;
-
+        win.innerHTML =
+            last['chess_' + game].record.win -
+            stored['chess_' + game].record.win;
+        draw.innerHTML =
+            last['chess_' + game].record.draw -
+            stored['chess_' + game].record.draw;
+        loss.innerHTML =
+            last['chess_' + game].record.loss -
+            stored['chess_' + game].record.loss;
     }
-  if(time=='today'){
-    let modif = last['chess_'+game].last.rating-stored['chess_'+game].last.rating
-    let sign = Math.sign(modif)>=0 ? '+' : '';
-    elo.innerHTML = last['chess_'+game].last.rating + " ("+sign+modif+')';
-    
-    win.innerHTML = last['chess_'+game].record.win-stored['chess_'+game].record.win;
-    draw.innerHTML = last['chess_'+game].record.draw-stored['chess_'+game].record.draw;
-    loss.innerHTML = last['chess_'+game].record.loss-stored['chess_'+game].record.loss;
-  }
-}
+};
 console.log(urlParams.get('name'));
 
-if(urlParams.get('name')===null || urlParams.get('name') === ""){
-  container.classList = 'container';
-}
-else{
-  stats.classList = '';
-  actualise(urlParams.get('name'), urlParams.get('type') , urlParams.get('time') );
-  setInterval(actualise,1000*60*0.5);
+if (urlParams.get('name') === null || urlParams.get('name') === '') {
+    container.classList = 'container';
+} else {
+    stats.classList = '';
+    actualise(
+        urlParams.get('name'),
+        urlParams.get('type'),
+        urlParams.get('time')
+    );
+    setInterval(actualise, 1000 * 60 * 0.5);
 }
 
-btn_help.addEventListener('click', event => {
-  help.classList =  help.classList.value === 'd-none' ? 'container' : 'd-none'
-})
+btn_help.addEventListener('click', (event) => {
+    help.classList = help.classList.value === 'd-none' ? 'container' : 'd-none';
+});
+
+popout.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.open(
+        '/?name=' +
+            document.querySelector('#name').value +
+            '&time=' +
+            time.value +
+            '&type=' +
+            type.value,
+        '',
+        'status=no, menubar=no, toolbar=no scrollbars=no'
+    );
+});
