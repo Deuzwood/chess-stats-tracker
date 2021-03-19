@@ -29,7 +29,8 @@ btn_help.addEventListener('click', (event) => {
 popout.addEventListener('click', (event) => {
     event.preventDefault();
     window.open(
-        '/?name=' +
+        document.URL +
+            '/?name=' +
             document.querySelector('#name').value +
             '&type=' +
             type.value +
