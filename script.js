@@ -30,7 +30,7 @@ popout.addEventListener('click', (event) => {
     event.preventDefault();
     window.open(
         document.URL +
-            '/?name=' +
+            '?name=' +
             document.querySelector('#name').value +
             '&type=' +
             type.value +
