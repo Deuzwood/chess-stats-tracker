@@ -9,10 +9,6 @@
 <body>
     <div id="stats" class="d-none">
     
-        <span class="elo" id="elo">#Undefined</span> :
-        <span class="win" id="win">#Undefined</span> /
-        <span class="draw" id="draw">#Undefined</span> /
-        <span class="loss" id="loss">#Undefined</span>
     </div>
 
     <div id="container" class="d-none">
@@ -27,11 +23,11 @@
 
             <br>
             
-            <label for="time">Time </label>
+            <label for="format">Format </label>
 
-            <select name="time" id="time">
-                <option value="all">All</option>
-                <option value="today">Session</option>
+            <select name="format" id="format">
+                <option value="global">Global Elo</option>
+                <option value="session">Session</option>
             </select>
 
             <br>
@@ -46,11 +42,18 @@
 
             <br>
 
-            <input type="submit" value="Search" id="search">
             <input type="submit" value="Pop-out in new window" id="popout">
         </form>
 
+        <div>
+            <h4>Result</h4>
+            <span id="previsualization"></span>
+        </div>
+
         <a href="#" id="btn_help">How use it ?</a>
+
+
+
     </div>
 
 
