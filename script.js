@@ -91,6 +91,22 @@ document.querySelector('#format').addEventListener('change', (event) => {
     updateVizualisation();
 });
 
+document.querySelector('#copy').addEventListener('click', (event) => {
+    event.preventDefault();
+    if (!navigator.clipboard) {
+        return;
+    }
+    navigator.clipboard.writeText(
+        document.URL +
+            '?name=' +
+            document.querySelector('#name').value +
+            '&type=' +
+            type.value +
+            '&format=' +
+            format.value
+    );
+});
+
 if (urlParams.get('name') === null || urlParams.get('name') === '') {
     container.classList = 'container';
 } else {
