@@ -44,7 +44,7 @@ popout.addEventListener('click', (event) => {
 let getString = (type, format) => {
     if (format == 'global') {
         return (
-            last['chess_bullet'].last.rating +
+            last['chess_' + type].last.rating +
             ' : ' +
             last['chess_' + type].record.win +
             ' / ' +
@@ -54,7 +54,7 @@ let getString = (type, format) => {
         );
     } else if (format == 'session') {
         let modif =
-            last['chess_bullet'].last.rating -
+            last['chess_' + type].last.rating -
             stored['chess_' + type].last.rating;
         let sign = Math.sign(modif) >= 0 ? '+' : '';
         elo = last['chess_' + type].last.rating + ' (' + sign + modif + ')';
