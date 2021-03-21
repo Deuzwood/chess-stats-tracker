@@ -11,8 +11,6 @@ let actualise = async (name, type = 'blitz', format = 'global') => {
         if (typeof stored === 'undefined') {
             stored = data;
         }
-        console.log(data);
-        console.log(name);
         last = data;
         let s = getString(type, format);
         previsualization.innerHTML = s;
@@ -26,48 +24,26 @@ btn_help.addEventListener('click', (event) => {
     help.classList = help.classList.value === 'd-none' ? 'container' : 'd-none';
 });
 
-popout.addEventListener('click', (event) => {
-    event.preventDefault();
-    window.open(
-        document.URL +
-            '?name=' +
-            document.querySelector('#name').value +
-            '&type=' +
-            type.value +
-            '&format=' +
-            format.value,
-        '',
-        'status=no, menubar=no, toolbar=no scrollbars=no'
-    );
-});
-
 let getString = (type, format) => {
+    let chess_type = 'chess_' + type;
     if (format == 'global') {
         return (
-            last['chess_' + type].last.rating +
+            last[chess_type].last.rating +
             ' : ' +
-            last['chess_' + type].record.win +
+            last[chess_type].record.win +
             ' / ' +
-            last['chess_' + type].record.draw +
+            last[chess_type].record.draw +
             ' / ' +
-            last['chess_' + type].record.loss
+            last[chess_type].record.loss
         );
     } else if (format == 'session') {
         let modif =
-            last['chess_' + type].last.rating -
-            stored['chess_' + type].last.rating;
+            last[chess_type].last.rating - stored[chess_type].last.rating;
         let sign = Math.sign(modif) >= 0 ? '+' : '';
-        elo = last['chess_' + type].last.rating + ' (' + sign + modif + ')';
-        win =
-            last['chess_' + type].record.win -
-            stored['chess_' + type].record.win;
-        draw =
-            last['chess_' + type].record.draw -
-            stored['chess_' + type].record.draw;
-        loss =
-            last['chess_' + type].record.loss -
-            stored['chess_' + type].record.loss;
-
+        elo = last[chess_type].last.rating + ' (' + sign + modif + ')';
+        win = last[chess_type].record.win - stored[chess_type].record.win;
+        draw = last[chess_type].record.draw - stored[chess_type].record.draw;
+        loss = last[chess_type].record.loss - stored[chess_type].record.loss;
         return elo + ' : ' + win + ' / ' + draw + ' / ' + loss;
     }
 };
@@ -81,6 +57,7 @@ function updateVizualisation() {
 }
 
 document.querySelector('#name').addEventListener('change', (event) => {
+    document.querySelector('#name').classList.remove('is-invalid');
     updateVizualisation();
 });
 
@@ -108,10 +85,30 @@ document.querySelector('#copy').addEventListener('click', (event) => {
     );
 });
 
+document.querySelector('#popout').addEventListener('click', (event) => {
+    event.preventDefault();
+    if (document.querySelector('#name').value.length != 0) {
+        window.open(
+            document.URL +
+                '?name=' +
+                document.querySelector('#name').value +
+                '&type=' +
+                type.value +
+                '&format=' +
+                format.value,
+            '',
+            'status=no, menubar=no, toolbar=no scrollbars=no'
+        );
+    } else {
+        document.querySelector('#name').classList.add('is-invalid');
+    }
+});
+
 if (urlParams.get('name') === null || urlParams.get('name') === '') {
-    container.classList = 'container';
+    main.classList.remove('d-none');
+    console.log(urlParams.get('name'));
 } else {
-    stats.classList = '';
+    stats.classList.remove('d-none');
     actualise(
         urlParams.get('name'),
         urlParams.get('type'),

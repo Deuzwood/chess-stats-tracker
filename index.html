@@ -3,47 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stats Chess</title>
-    <link href="styles.css" rel="stylesheet">
+    <title>Chess Stats Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 </head>
 <body>
     <div id="stats" class="d-none">
-    
+
     </div>
 
-    <div id="container" class="d-none">
 
-        <h1>Stats Chess</h1>
+    <div id="main" class="container d-none mt-3">
 
-        <form>
+        <h1 >Chess Stats Tracker</h1>
 
-            <label for="name">Name </label>
+        <form class="pt-3">
 
-            <input type="text" name="name" id="name">
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="name" type="text" placeholder="Chess.com username">
+                </div>
+                
+            </div>
 
-            <br>
-            
-            <label for="format">Format </label>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Format</label>
+                <div class="col-sm-10">
+                    <select class="form-select" name="format" id="format">
+                        <option value="global">Global Elo</option>
+                        <option value="session">Session</option>
+                    </select>
+                </div>
 
-            <select name="format" id="format">
-                <option value="global">Global Elo</option>
-                <option value="session">Session</option>
-            </select>
+            </div>
 
-            <br>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Type</label>
+                <div class="col-sm-10">
+                    <select class="form-select" name="type" id="type">
+                        <option value="bullet">Bullet</option>
+                        <option value="blitz">Blitz</option>
+                        <option value="rapid">Rapid</option>
+                    </select>
+                </div>
 
-            <label for="type">Type </label>
+            </div>
 
-            <select name="type" id="type">
-                <option value="bullet">Bullet</option>
-                <option value="blitz">Blitz</option>
-                <option value="rapid">Rapid</option>
-            </select>
-
-            <br>
-
-            <input type="submit" value="Pop-out in new window" id="popout">
-            <button id="copy">copy link</button>
+            <div>
+                <button class="btn btn-primary" id="popout">Pop-out in new window</button>
+                <button class="btn btn-secondary" id="copy">Copy link (OBS)</button>
+            </div>
         </form>
 
         <div>
@@ -52,8 +62,6 @@
         </div>
 
         <a href="#" id="btn_help">How use it ?</a>
-
-
 
     </div>
 
@@ -89,16 +97,13 @@
 
             
             The configuration for CSS may look like :
-        <pre><code>
-        body { 
-            background-color: rgba(0, 0, 0, 0); 
-            margin: 0px auto; 
-            overflow: hidden; 
-            color: white;
-            font-size: 48px;
-        }</code></pre>
-
-        If you want to change CSS of Win / Draw / Loss , use <code>.win .draw .loss</code> CSS classes
+        <pre><code>body { 
+    background-color: rgba(0, 0, 0, 0); 
+    margin: 0px auto; 
+    overflow: hidden; 
+    color: white;
+    font-size: 48px;
+}</code></pre>
         </p>
 
     </div>
