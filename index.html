@@ -104,8 +104,33 @@
     color: white;
     font-size: 48px;
 }</code></pre>
-        </p>
 
+        In your software the render will be something like 
+        <pre>3177 : 915 / 257 / 334</pre>
+        Using CSS classes "elo", "win" , "draw" and "loss" you can customize as you wish.
+        You can try this configuration.
+        <pre><code>body { 
+    background-color: rgba(0, 0, 0, 0); 
+    margin: 0px auto; 
+    overflow: hidden; 
+    color: white;
+    font-size: 48px;
+}
+
+.win {
+    color : green;
+}
+
+.draw {
+    color : gray;
+}
+
+.loss {
+    color : red;
+}
+    </code></pre>
+    3177 : <span style="color: green;">915</span> / <span style="color: grey;">257</span> / <span style="color: red;">334</span> 
+        </p>
     </div>
 
     <script src="script.js"></script>

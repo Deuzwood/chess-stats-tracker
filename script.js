@@ -25,16 +25,18 @@ btn_help.addEventListener('click', (event) => {
 });
 
 let getString = (type, format) => {
+    const classFormat = (elo, win, draw, loss) =>
+        ` <span class="elo">${elo}</span> :
+        <span class="win">${win}</span> /
+        <span class="draw">${draw}</span> /
+        <span class="loss">${loss}</span>`;
     let chess_type = 'chess_' + type;
     try {
         if (format == 'global') {
-            return (
-                last[chess_type].last.rating +
-                ' : ' +
-                last[chess_type].record.win +
-                ' / ' +
-                last[chess_type].record.draw +
-                ' / ' +
+            return classFormat(
+                last[chess_type].last.rating,
+                last[chess_type].record.win,
+                last[chess_type].record.draw,
                 last[chess_type].record.loss
             );
         } else if (format == 'session') {
@@ -47,7 +49,7 @@ let getString = (type, format) => {
                 last[chess_type].record.draw - stored[chess_type].record.draw;
             loss =
                 last[chess_type].record.loss - stored[chess_type].record.loss;
-            return elo + ' : ' + win + ' / ' + draw + ' / ' + loss;
+            return classFormat(elo, win, draw, loss);
         }
     } catch (error) {
         return `<span class="text-danger">${last.message}</span>`;
