@@ -26,25 +26,31 @@ btn_help.addEventListener('click', (event) => {
 
 let getString = (type, format) => {
     let chess_type = 'chess_' + type;
-    if (format == 'global') {
-        return (
-            last[chess_type].last.rating +
-            ' : ' +
-            last[chess_type].record.win +
-            ' / ' +
-            last[chess_type].record.draw +
-            ' / ' +
-            last[chess_type].record.loss
-        );
-    } else if (format == 'session') {
-        let modif =
-            last[chess_type].last.rating - stored[chess_type].last.rating;
-        let sign = Math.sign(modif) >= 0 ? '+' : '';
-        elo = last[chess_type].last.rating + ' (' + sign + modif + ')';
-        win = last[chess_type].record.win - stored[chess_type].record.win;
-        draw = last[chess_type].record.draw - stored[chess_type].record.draw;
-        loss = last[chess_type].record.loss - stored[chess_type].record.loss;
-        return elo + ' : ' + win + ' / ' + draw + ' / ' + loss;
+    try {
+        if (format == 'global') {
+            return (
+                last[chess_type].last.rating +
+                ' : ' +
+                last[chess_type].record.win +
+                ' / ' +
+                last[chess_type].record.draw +
+                ' / ' +
+                last[chess_type].record.loss
+            );
+        } else if (format == 'session') {
+            let modif =
+                last[chess_type].last.rating - stored[chess_type].last.rating;
+            let sign = Math.sign(modif) >= 0 ? '+' : '';
+            elo = last[chess_type].last.rating + ' (' + sign + modif + ')';
+            win = last[chess_type].record.win - stored[chess_type].record.win;
+            draw =
+                last[chess_type].record.draw - stored[chess_type].record.draw;
+            loss =
+                last[chess_type].record.loss - stored[chess_type].record.loss;
+            return elo + ' : ' + win + ' / ' + draw + ' / ' + loss;
+        }
+    } catch (error) {
+        return `<span class="text-danger">${last.message}</span>`;
     }
 };
 
