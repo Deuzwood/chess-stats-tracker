@@ -31,7 +31,7 @@ type
 
 The link is :
 
-    https://deuzwood.github.io/stats_stream_chess/?name=LyonBeast&type=blitz&format=global
+    https://deuzwood.github.io/chess-stats-tracker/?name=LyonBeast&type=blitz&format=global
 
 The result :
 
