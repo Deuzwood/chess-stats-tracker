@@ -2,7 +2,7 @@ let stored, last;
 
 const urlParams = new URLSearchParams(window.location.search);
 
-let actualise = async (name, type = 'blitz', format = 'global') => {
+let actualise = async (name, type = 'blitz', format = 'global', returnFormat = 'plain') => {
     try {
         let response = await fetch(
             'https://api.chess.com/pub/player/' + name + '/stats'
@@ -12,7 +12,7 @@ let actualise = async (name, type = 'blitz', format = 'global') => {
             stored = data;
         }
         last = data;
-        let s = getString(type, format);
+        let s = getString(type, format, returnFormat);
         previsualization.innerHTML = s;
         stats.innerHTML = s;
     } catch (err) {
@@ -24,21 +24,42 @@ btn_help.addEventListener('click', (event) => {
     help.classList = help.classList.value === 'd-none' ? 'container' : 'd-none';
 });
 
-let getString = (type, format) => {
+let getString = (type, format, returnFormat) => {
     const classFormat = (elo, win, draw, loss) =>
         ` <span class="elo">${elo}</span> :
         <span class="win">${win}</span> /
         <span class="draw">${draw}</span> /
         <span class="loss">${loss}</span>`;
+    const jsonFomat = (elo, win, draw, loss, diff = null) => {
+        let obj = {
+            elo : elo,
+            win : win,
+            draw : draw,
+            loss : loss,
+        }
+        if(typeof diff !== "null"){
+            obj.diff = diff
+        }
+
+        return JSON.stringify(
+            obj
+        );
+    }
+
     let chess_type = 'chess_' + type;
     try {
         if (format == 'global') {
-            return classFormat(
+            return returnFormat=="plain" ? classFormat(
                 last[chess_type].last.rating,
                 last[chess_type].record.win,
                 last[chess_type].record.draw,
                 last[chess_type].record.loss
-            );
+            ) : jsonFomat(
+                last[chess_type].last.rating,
+                last[chess_type].record.win,
+                last[chess_type].record.draw,
+                last[chess_type].record.loss
+            ) ;
         } else if (format == 'session') {
             let modif =
                 last[chess_type].last.rating - stored[chess_type].last.rating;
@@ -49,18 +70,23 @@ let getString = (type, format) => {
                 last[chess_type].record.draw - stored[chess_type].record.draw;
             loss =
                 last[chess_type].record.loss - stored[chess_type].record.loss;
-            return classFormat(elo, win, draw, loss);
+            return returnFormat=="plain" ? classFormat(elo, win, draw, loss) : jsonFomat(last[chess_type].last.rating, win, draw, loss, (sign + modif));
         }
     } catch (error) {
         return `<span class="text-danger">${last.message}</span>`;
     }
 };
 
+let getSelectedReturn = () => {
+    return document.querySelector('input[name="return"]:checked').value;
+}
+
 function updateVizualisation() {
     actualise(
         document.querySelector('#name').value,
         document.querySelector('#type').value,
-        document.querySelector('#format').value
+        document.querySelector('#format').value,
+        getSelectedReturn()
     );
 }
 
@@ -77,6 +103,25 @@ document.querySelector('#format').addEventListener('change', (event) => {
     updateVizualisation();
 });
 
+document.querySelectorAll('input[type="radio"]').forEach( el => 
+    {
+        el.addEventListener('change', (event) => {
+            updateVizualisation();
+    }
+    )
+});
+
+const getQuery = () => {
+    return '?name=' +
+        document.querySelector('#name').value +
+        '&type=' +
+        type.value +
+        '&format=' +
+        format.value +
+        '&return=' +
+        getSelectedReturn()
+}
+
 document.querySelector('#copy').addEventListener('click', (event) => {
     event.preventDefault();
     if (!navigator.clipboard) {
@@ -84,12 +129,7 @@ document.querySelector('#copy').addEventListener('click', (event) => {
     }
     navigator.clipboard.writeText(
         document.URL +
-            '?name=' +
-            document.querySelector('#name').value +
-            '&type=' +
-            type.value +
-            '&format=' +
-            format.value
+           getQuery()
     );
 });
 
@@ -98,12 +138,7 @@ document.querySelector('#popout').addEventListener('click', (event) => {
     if (document.querySelector('#name').value.length != 0) {
         window.open(
             document.URL +
-                '?name=' +
-                document.querySelector('#name').value +
-                '&type=' +
-                type.value +
-                '&format=' +
-                format.value,
+            getQuery(),
             '',
             'status=no, menubar=no, toolbar=no scrollbars=no'
         );
@@ -114,19 +149,20 @@ document.querySelector('#popout').addEventListener('click', (event) => {
 
 if (urlParams.get('name') === null || urlParams.get('name') === '') {
     main.classList.remove('d-none');
-    console.log(urlParams.get('name'));
 } else {
     stats.classList.remove('d-none');
     actualise(
         urlParams.get('name'),
         urlParams.get('type'),
-        urlParams.get('format')
+        urlParams.get('format'),
+        urlParams.get('return')
     );
     setInterval(
         actualise,
         1000 * 60 * 0.5,
         urlParams.get('name'),
         urlParams.get('type'),
-        urlParams.get('format')
+        urlParams.get('format'),
+        urlParams.get('return')
     );
 }

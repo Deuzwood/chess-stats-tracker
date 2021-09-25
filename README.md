@@ -10,20 +10,20 @@ Updates each 30 seconds.
 
 ## Usage
 
-#### Using the form :
+### Using the form
 
 format
 
--   global ( shows your overall elo with overall win/draw/loss)
--   session ( shows your elo (+variation) and win/draw/loss )
+- global ( shows your overall elo with overall win/draw/loss)
+- session ( shows your elo (+variation) and win/draw/loss )
 
 type
 
--   bullet
--   blitz
--   rapid
+- bullet
+- blitz
+- rapid
 
-#### With URL parameters :
+### With URL parameters:
 
 ?format=global&type=blitz&name=LyonBeast
 
