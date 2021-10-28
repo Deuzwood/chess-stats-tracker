@@ -37,7 +37,7 @@ let getString = (type, format, returnFormat) => {
             draw : draw,
             loss : loss,
         }
-        if(typeof diff !== "null"){
+        if(diff !== null){
             obj.diff = diff
         }
 
