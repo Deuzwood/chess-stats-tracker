@@ -1,6 +1,6 @@
 # chess stats tracker
 
-Web Page , gives your chess stats from Chess.com.
+Web Page, gives your chess stats from Chess.com.
 
 elo : win / draw / loss
 
@@ -12,12 +12,12 @@ Updates each 30 seconds.
 
 ### Using the form
 
-format
+format :
 
 - global ( shows your overall elo with overall win/draw/loss)
 - session ( shows your elo (+variation) and win/draw/loss )
 
-type
+type :
 
 - bullet
 - blitz
@@ -37,8 +37,8 @@ The result :
 
     3177 : 915 / 257 / 334
 
-Using the session :
+Using the session format :
 
     3181 (+4) : 1 / 0 / 0
 
-(which mean you won 1 game and 4 elo points)
+Which mean you won 4 elo points in 1 game (1 win, 0 draw, 0 loss).

@@ -20,8 +20,9 @@ let actualise = async (name, type = 'blitz', format = 'global', returnFormat = '
     }
 };
 
-btn_help.addEventListener('click', (event) => {
-    help.classList = help.classList.value === 'd-none' ? 'container' : 'd-none';
+document.querySelector('#btn_help').addEventListener('click', (event) => {
+    event.preventDefault();
+    document.querySelector('#help').classList.toggle('d-none');
 });
 
 let getString = (type, format, returnFormat) => {
@@ -133,6 +134,15 @@ document.querySelector('#copy').addEventListener('click', (event) => {
     );
 });
 
+function getUrlParams() {
+    return [
+        urlParams.get('name') || '',
+        urlParams.get('type') || 'blitz',
+        urlParams.get('format') || 'global',
+        urlParams.get('return') || 'plain'
+    ];
+}
+
 document.querySelector('#popout').addEventListener('click', (event) => {
     event.preventDefault();
     if (document.querySelector('#name').value.length != 0) {
@@ -152,17 +162,17 @@ if (urlParams.get('name') === null || urlParams.get('name') === '') {
 } else {
     stats.classList.remove('d-none');
     actualise(
-        urlParams.get('name'),
-        urlParams.get('type'),
-        urlParams.get('format'),
-        urlParams.get('return')
+        ...getUrlParams()
     );
     setInterval(
         actualise,
         1000 * 60 * 0.5,
-        urlParams.get('name'),
-        urlParams.get('type'),
-        urlParams.get('format'),
-        urlParams.get('return')
+        ...getUrlParams()
     );
+}
+
+window.onload = () => {
+    if (document.querySelector('#name').value.length != 0) {
+        updateVizualisation();
+    }
 }
