@@ -2,7 +2,7 @@ let stored, last;
 
 const urlParams = new URLSearchParams(window.location.search);
 
-let actualise = async (name, type = 'blitz', format = 'global', returnFormat = 'plain') => {
+const actualise = async (name, type = 'blitz', format = 'global', returnFormat = 'plain') => {
     try {
         let response = await fetch(
             'https://api.chess.com/pub/player/' + name + '/stats'
@@ -24,7 +24,7 @@ btn_help.addEventListener('click', (event) => {
     help.classList = help.classList.value === 'd-none' ? 'container' : 'd-none';
 });
 
-let getString = (type, format, returnFormat) => {
+const getString = (type, format, returnFormat) => {
     const classFormat = (elo, win, draw, loss) =>
         ` <span class="elo">${elo}</span> :
         <span class="win">${win}</span> /
@@ -32,24 +32,22 @@ let getString = (type, format, returnFormat) => {
         <span class="loss">${loss}</span>`;
     const jsonFomat = (elo, win, draw, loss, diff = null) => {
         let obj = {
-            elo : elo,
-            win : win,
-            draw : draw,
-            loss : loss,
+            elo: elo,
+            win: win,
+            draw: draw,
+            loss: loss,
         }
-        if(diff !== null){
+        if (diff !== null) {
             obj.diff = diff
         }
 
-        return JSON.stringify(
-            obj
-        );
+        return JSON.stringify(obj);
     }
 
     let chess_type = 'chess_' + type;
     try {
         if (format == 'global') {
-            return returnFormat=="plain" ? classFormat(
+            return returnFormat == "plain" ? classFormat(
                 last[chess_type].last.rating,
                 last[chess_type].record.win,
                 last[chess_type].record.draw,
@@ -59,7 +57,7 @@ let getString = (type, format, returnFormat) => {
                 last[chess_type].record.win,
                 last[chess_type].record.draw,
                 last[chess_type].record.loss
-            ) ;
+            );
         } else if (format == 'session') {
             let modif =
                 last[chess_type].last.rating - stored[chess_type].last.rating;
@@ -70,18 +68,18 @@ let getString = (type, format, returnFormat) => {
                 last[chess_type].record.draw - stored[chess_type].record.draw;
             loss =
                 last[chess_type].record.loss - stored[chess_type].record.loss;
-            return returnFormat=="plain" ? classFormat(elo, win, draw, loss) : jsonFomat(last[chess_type].last.rating, win, draw, loss, (sign + modif));
+            return returnFormat == "plain" ? classFormat(elo, win, draw, loss) : jsonFomat(last[chess_type].last.rating, win, draw, loss, (sign + modif));
         }
     } catch (error) {
         return `<span class="text-danger">${last.message}</span>`;
     }
 };
 
-let getSelectedReturn = () => {
+const getSelectedReturn = () => {
     return document.querySelector('input[name="return"]:checked').value;
 }
 
-function updateVizualisation() {
+const updateVizualisation = () => {
     actualise(
         document.querySelector('#name').value,
         document.querySelector('#type').value,
@@ -90,23 +88,22 @@ function updateVizualisation() {
     );
 }
 
-document.querySelector('#name').addEventListener('change', (event) => {
+document.querySelector('#name').addEventListener('change', () => {
     document.querySelector('#name').classList.remove('is-invalid');
     updateVizualisation();
 });
 
-document.querySelector('#type').addEventListener('change', (event) => {
+document.querySelector('#type').addEventListener('change', () => {
     updateVizualisation();
 });
 
-document.querySelector('#format').addEventListener('change', (event) => {
+document.querySelector('#format').addEventListener('change', () => {
     updateVizualisation();
 });
 
-document.querySelectorAll('input[type="radio"]').forEach( el => 
-    {
-        el.addEventListener('change', (event) => {
-            updateVizualisation();
+document.querySelectorAll('input[type="radio"]').forEach(el => {
+    el.addEventListener('change', () => {
+        updateVizualisation();
     }
     )
 });
@@ -129,7 +126,7 @@ document.querySelector('#copy').addEventListener('click', (event) => {
     }
     navigator.clipboard.writeText(
         document.URL +
-           getQuery()
+        getQuery()
     );
 });
 
